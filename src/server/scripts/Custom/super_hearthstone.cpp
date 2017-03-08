@@ -165,6 +165,7 @@ public:
 		player->SetHomebind(waypoint, GetAreaIdFromWorldLocation(waypoint));
 		//player->TeleportTo(waypoint);
 		//ApplyPlayerItemCooldown(player, item, std::chrono::seconds(60));
+		player->CastStop();
 		player->CastItemUseSpell(item, SpellCastTargets(), 1, 0);
 
 		CloseGossipMenuFor(player);
