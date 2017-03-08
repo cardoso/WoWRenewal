@@ -41,6 +41,8 @@ public:
 
 	bool OnUse(Player* player, Item* item, SpellCastTargets const& /*targets*/) {
 
+		auto locale = player->GetSession()->GetSessionDbLocaleIndex();
+
 		ClearGossipMenuFor(player);
 
 		auto waypoints = GetPlayerWaypoints(player);
@@ -48,12 +50,12 @@ public:
 		for (auto w = waypoints.begin(); w < waypoints.end(); w++) {
 			auto mapEntry = sMapStore.LookupEntry(w->m_mapId);
 			if (!mapEntry) continue;
-			auto mapName = std::string(mapEntry->name[sWorld->GetDefaultDbcLocale()]);
+			auto mapName = std::string(mapEntry->name[locale]);
 
 			auto areaId = MapManager::instance()->GetAreaId(w->m_mapId, w->m_positionX, w->m_positionY, w->m_positionZ);
 			auto areaEntry = sAreaTableStore.LookupEntry(areaId);
 			if (!areaEntry) continue;
-			auto areaName = std::string(areaEntry->area_name[sWorld->GetDefaultDbcLocale()]);
+			auto areaName = std::string(areaEntry->area_name[locale]);
 
 			AddGossipItemFor(player, 0, areaName + " (" + mapName + ")",
 							 GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
@@ -61,6 +63,10 @@ public:
 
 		SendGossipMenuFor(player, 135555, item->GetGUID());
 
+		return true;
+	}
+
+	bool OnRemove(Player* /*player*/, Item* /*item*/) {
 		return true;
 	}
 };
