@@ -46,6 +46,52 @@ public:
 		return GetAreaNameFromAreaId(areaId, locale);
 	}
 
+	/* WoWRenewal Additions */
+
+	// generic cooldown function
+	/*void ApplyPlayerItemCooldown(Player* player, Item* pItem, Milliseconds cooldown)
+	{
+		if (pItem->GetTemplate()->Flags & ITEM_FLAG_NO_EQUIP_COOLDOWN)
+			return;
+
+		std::chrono::steady_clock::time_point now = GameTime::GetGameTimeSteadyPoint();
+		for (uint8 i = 0; i < MAX_ITEM_PROTO_SPELLS; ++i)
+		{
+			_Spell const& spellData = pItem->GetTemplate()->Spells[i];
+
+			// no spell
+			if (spellData.SpellId <= 0)
+				continue;
+
+			// apply proc cooldown to equip auras if we have any
+			if (spellData.SpellTrigger == ITEM_SPELLTRIGGER_ON_EQUIP)
+			{
+				SpellProcEntry const* procEntry = sSpellMgr->GetSpellProcEntry(spellData.SpellId);
+				if (!procEntry)
+					continue;
+
+				if (Aura* itemAura = player->GetAura(spellData.SpellId, player->GetGUID(), pItem->GetGUID()))
+					itemAura->AddProcCooldown(now + cooldown);
+				continue;
+			}
+
+			// wrong triggering type (note: ITEM_SPELLTRIGGER_ON_NO_DELAY_USE not have cooldown)
+			/*if (spellData.SpellTrigger != ITEM_SPELLTRIGGER_ON_USE)
+				continue;*/
+
+			// Don't replace longer cooldowns by equip cooldown if we have any.
+			/*if (player->GetSpellHistory()->GetRemainingCooldown(sSpellMgr->AssertSpellInfo(spellData.SpellId)) > 30 * IN_MILLISECONDS)
+				continue;*/
+
+			/*player->GetSpellHistory()->AddCooldown(spellData.SpellId, pItem->GetEntry(), cooldown);
+
+			WorldPacket data(SMSG_ITEM_COOLDOWN, 8 + 4);
+			data << uint64(pItem->GetGUID());
+			data << uint32(spellData.SpellId);
+			player->GetSession()->SendPacket(&data);
+		}
+	}*/
+
 	std::vector<WorldLocation> GetPlayerWaypoints(Player* player) {
 
 		auto waypoints = std::vector<WorldLocation>();
@@ -108,7 +154,7 @@ public:
 		return true;
 	}
 
-	void OnGossipSelect(Player* player, Item* /*item*/, uint32 /*sender*/, uint32 action) {
+	void OnGossipSelect(Player* player, Item* item, uint32 /*sender*/, uint32 action) {
 
 		ClearGossipMenuFor(player);
 
@@ -116,7 +162,10 @@ public:
 		auto choice = action - GOSSIP_ACTION_INFO_DEF - 1;
 		auto waypoint = waypoints[choice];
 
-		player->TeleportTo(waypoint);
+		player->SetHomebind(waypoint, GetAreaIdFromWorldLocation(waypoint));
+		//player->TeleportTo(waypoint);
+		//ApplyPlayerItemCooldown(player, item, std::chrono::seconds(60));
+		player->CastItemUseSpell(item, SpellCastTargets(), 1, 0);
 
 		CloseGossipMenuFor(player);
 	}
