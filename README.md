@@ -1,78 +1,82 @@
-# ![logo](https://community.trinitycore.org/public/style_images/1_trinitycore.png) TrinityCore (3.3.5)
-
-[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/TrinityCore/TrinityCore.svg)](https://isitmaintained.com/project/TrinityCore/TrinityCore "Average time to resolve an issue") [![Percentage of issues still open](https://isitmaintained.com/badge/open/TrinityCore/TrinityCore.svg)](https://isitmaintained.com/project/TrinityCore/TrinityCore "Percentage of issues still open")
-
-## Build Status
-
-master | 3.3.5
-:------------: | :------------:
-[![master Build Status](https://travis-ci.org/TrinityCore/TrinityCore.svg?branch=master)](https://travis-ci.org/TrinityCore/TrinityCore) | [![3.3.5 Build Status](https://travis-ci.org/TrinityCore/TrinityCore.svg?branch=3.3.5)](https://travis-ci.org/TrinityCore/TrinityCore)
-[![master Build status](https://ci.appveyor.com/api/projects/status/54d0u1fxe50ad80o/branch/master?svg=true)](https://ci.appveyor.com/project/DDuarte/trinitycore/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/54d0u1fxe50ad80o/branch/3.3.5?svg=true)](https://ci.appveyor.com/project/DDuarte/trinitycore/branch/3.3.5)
-[![Coverity Scan Build Status](https://scan.coverity.com/projects/435/badge.svg)](https://scan.coverity.com/projects/435) | [![Coverity Scan Build Status](https://scan.coverity.com/projects/4656/badge.svg)](https://scan.coverity.com/projects/4656)
-
-## Introduction
-
-TrinityCore is a *MMORPG* Framework based mostly in C++.
-
-It is derived from *MaNGOS*, the *Massive Network Game Object Server*, and is
-based on the code of that project with extensive changes over time to optimize,
-improve and cleanup the codebase at the same time as improving the in-game
-mechanics and functionality.
-
-It is completely open source; community involvement is highly encouraged.
-
-If you wish to contribute ideas or code please visit our site linked below or
-make pull requests to our [Github repository](https://github.com/TrinityCore/TrinityCore/pulls).
-
-For further information on the TrinityCore project, please visit our project
-website at [TrinityCore.org](https://www.trinitycore.org).
-
-## Requirements
+# WoW Renewal Project (3.3.5)
 
 
-Software requirements are available in the [wiki](https://www.trinitycore.info/display/tc/Requirements) for
-Windows, Linux and OS X.
+This is a fork of TrinityCore, please check out the [original repository](https://github.com/TrinityCore/TrinityCore/tree/3.3.5) for more information.
 
 
-## Install
-
-Detailed installation guides are available in the [wiki](https://www.trinitycore.info/display/tc/Installation+Guide) for
-Windows, Linux and OS X.
+## About
 
 
-## Reporting issues
-
-Issues can be reported via the [Github issue tracker](https://github.com/TrinityCore/TrinityCore/labels/Branch-3.3.5a).
-
-Please take the time to review existing issues before submitting your own to
-prevent duplicates.
-
-In addition, thoroughly read through the [issue tracker guide](https://community.trinitycore.org/topic/37-the-trinitycore-issuetracker-and-you/) to ensure
-your report contains the required information. Incorrect or poorly formed
-reports are wasteful and are subject to deletion.
+### The purpose of this fork is to renew the WoW 3.3.5 gameplay experience by:
 
 
-## Submitting fixes
-
-C++ fixes are submitted as pull requests via Github. For more information on how to
-properly submit a pull request, read the [how-to: maintain a remote fork](https://community.trinitycore.org/topic/9002-howto-maintain-a-remote-fork-for-pull-requests-tortoisegit/).
-For SQL only fixes open a ticket or if a bug report exists for the bug post on existing ticket.
+- Overhauling existing mechanics
+- Reducing waste of time while playing
 
 
-## Copyright
-
-License: GPL 2.0
-
-Read file [COPYING](COPYING).
+### And NOT by:
 
 
-## Authors &amp; Contributors
+- Making it a different game
+- Making it easier than it should
 
-Read file [THANKS](THANKS).
+
+### Specific goals
 
 
-## Links
+- Bring old players back
+- Friendlier experience to busy people
 
-* [Website](https://www.trinitycore.org)
-* [Wiki](https://www.trinitycore.info)
-* [Forums](https://community.trinitycore.org)
+
+### Challenges
+
+
+- Remove excessive walking, but keep exploration
+- Reduce waste of time, but keep difficulty
+- Tweak mechanics, but keep their essence
+- Add new features, but keep the old relevant
+- Do all that in a seamless way
+
+
+## Current Features
+
+
+### Super Hearthstone
+
+
+- Hearthstone can now store multiple homes (opens Gossip dialog when used).
+- When setting home with an InnKeeper, he adds that home to the Hearthstone.
+- When selecting one of your homes, the Hearthstone skill is used and you still get the 30min cooldown
+- Needs more limitation (maximum number of homes? money penalty? location based cooldown)
+
+
+## Planned Features
+
+
+### Blowing Horn
+
+
+- Access bank, AH or trainer anywhere, but only when in a city
+- Limited by 10min cooldown and tax proportional to level
+
+
+## Issues
+
+You should open issues to:
+
+
+- Suggest changes to current features (nothing here is set in stone)
+- Suggest new features
+- Report unexpected behaviours caused by WoWRenewal
+
+
+You should not open issues to:
+
+
+- Fix things that are TrinityCore's problems. (Please do that in the [original repository](https://github.com/TrinityCore/TrinityCore/tree/3.3.5))
+
+### Disclosure
+
+
+I am a much better developer than i am a WoW player, so my features will most likely break something, add new exploits, etc.
+Thus, i need help to prevent these as much as possible.
