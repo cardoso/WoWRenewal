@@ -5857,6 +5857,38 @@ void Spell::EffectBind(SpellEffIndex effIndex)
     data << uint64(m_caster->GetGUID());
     data << uint32(areaId);
     player->SendDirectMessage(&data);
+
+	/* WoWRenewal Additions */
+
+	auto playerId = player->GetSession()->GetGUIDLow();
+
+	std::string query = "SELECT mapId, areaId, x, y, z FROM super_hearthstone_waypoints";
+	query += " WHERE character_guid = " + std::to_string(playerId);
+	query += " AND areaId = " + std::to_string(areaId) + ";";
+
+	auto res = CharacterDatabase.Query(query.c_str()); // CRASH!!! RES NULO!!
+	
+	// does not have this waypoint
+	if (!res) {
+
+		std::string query = "INSERT INTO super_hearthstone_waypoints (character_guid, mapId, areaId, x, y, z)";
+		query += " VALUES(" + std::to_string(playerId) + ", " + std::to_string(homeLoc.m_mapId);
+		query += ", " + std::to_string(areaId) + ", " + std::to_string(homeLoc.m_positionX);
+		query += ", " + std::to_string(homeLoc.m_positionY) + ", " + std::to_string(homeLoc.m_positionZ) + ");";
+
+		CharacterDatabase.Query(query.c_str());
+
+		printf("novo waypoint");
+
+	} else if (res->GetRowCount() > 0) { // already has this waypoint
+
+		printf("ja tem");
+	}
+
+
+
+
+	/* End WoWRenewal Additions */
 }
 
 void Spell::EffectSummonRaFFriend(SpellEffIndex effIndex)
