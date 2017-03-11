@@ -46,9 +46,9 @@ public:
 		return GetAreaNameFromAreaId(areaId, locale);
 	}
 
-	std::vector<WorldLocation> GetPlayerWaypoints(Player* player) {
+	std::vector<WorldLocation> GetPlayerHomes(Player* player) {
 
-		auto waypoints = std::vector<WorldLocation>();
+		auto homes = std::vector<WorldLocation>();
 
 		std::string query = "SELECT mapId, areaId, x, y, z FROM renewal_hearthstone_homes WHERE character_guid = ";
 		query += std::to_string(player->GetSession()->GetGUIDLow()) + " ORDER BY areaId;";
@@ -79,26 +79,26 @@ public:
 				if (!GetAreaTableEntryFromWorldLocation(location))
 					continue;
 
-				waypoints.push_back(location);
+				homes.push_back(location);
 
 			} while (res->NextRow());
 		}
 
-		return waypoints;
+		return homes;
 	}
 
 	bool OnUse(Player* player, Item* item, SpellCastTargets const& /*targets*/) {
 
 		auto locale = player->GetSession()->GetSessionDbLocaleIndex();
-		auto waypoints = GetPlayerWaypoints(player);
+		auto homes = GetPlayerHomes(player);
 
 		ClearGossipMenuFor(player);
 
 		auto i = 1;
-		for (auto w : waypoints) {
+		for (auto h : homes) {
 
-			auto mapName = GetMapNameFromMapId(w.m_mapId, locale);
-			auto areaName = GetAreaNameFromWorldLocation(w, locale);
+			auto mapName = GetMapNameFromMapId(h.m_mapId, locale);
+			auto areaName = GetAreaNameFromWorldLocation(h, locale);
 
 			AddGossipItemFor(player, 0, areaName + " (" + mapName + ")",
 				GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + i);
@@ -115,11 +115,11 @@ public:
 
 		ClearGossipMenuFor(player);
 
-		auto waypoints = GetPlayerWaypoints(player);
+		auto homes = GetPlayerHomes(player);
 		auto choice = action - GOSSIP_ACTION_INFO_DEF - 1;
-		auto waypoint = waypoints[choice];
+		auto home = homes[choice];
 
-		player->SetHomebind(waypoint, GetAreaIdFromWorldLocation(waypoint));
+		player->SetHomebind(home, GetAreaIdFromWorldLocation(home));
 		player->CastStop();
 		player->CastItemUseSpell(item, SpellCastTargets(), 1, 0);
 
