@@ -16,11 +16,11 @@
  */
 
 // This is where scripts' loading functions should be declared:
-void AddSC_super_hearthstone();
+void AddSC_renewal_hearthstone();
 
 // The name of this function should match:
 // void Add${NameOfDirectory}Scripts()
 void AddCustomScripts()
 {
-	AddSC_super_hearthstone();
+	AddSC_renewal_hearthstone();
 }

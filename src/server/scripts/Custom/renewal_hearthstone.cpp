@@ -1,10 +1,10 @@
 #include "ScriptMgr.h"
 #include "MapManager.h"
 
-class super_hearthstone : ItemScript
+class renewal_hearthstone : ItemScript
 {
 public:
-	super_hearthstone() : ItemScript("super_hearthstone") {}
+	renewal_hearthstone() : ItemScript("renewal_hearthstone") {}
 
 	// may return null_ptr
 	const MapEntry* GetMapEntryFromMapId(uint32 mapId) {
@@ -50,7 +50,7 @@ public:
 
 		auto waypoints = std::vector<WorldLocation>();
 
-		std::string query = "SELECT mapId, areaId, x, y, z FROM super_hearthstone_waypoints WHERE character_guid = ";
+		std::string query = "SELECT mapId, areaId, x, y, z FROM renewal_hearthstone_homes WHERE character_guid = ";
 		query += std::to_string(player->GetSession()->GetGUIDLow()) + " ORDER BY areaId;";
 
 		auto res = CharacterDatabase.Query(query.c_str());
@@ -131,7 +131,7 @@ public:
 	}
 };
 
-void AddSC_super_hearthstone()
+void AddSC_renewal_hearthstone()
 {
-	new super_hearthstone();
+	new renewal_hearthstone();
 }
